@@ -18,9 +18,9 @@ const BookList: React.FC = () => {
       try {
         const booksFromAPI = await getBooks();
         setBooks(booksFromAPI);
-        setFilteredBooks(booksFromAPI); // Inicializamos con todos los libros
+        setFilteredBooks(booksFromAPI); 
       } catch (error) {
-        console.error("Error fetching books:", error);
+        console.error("Error consultando libros", error);
       }
     };
     fetchBooks();
@@ -33,7 +33,7 @@ const BookList: React.FC = () => {
       setBooks(books.filter((book) => book._id !== id)); 
       setFilteredBooks(filteredBooks.filter((book) => book._id !== id)); 
     } catch (error) {
-      console.error("Error deleting book:", error);
+      console.error("Error eliminando libros:", error);
     }
   };
 
@@ -52,7 +52,7 @@ const BookList: React.FC = () => {
         setBooks(booksFromAPI);
         setFilteredBooks(booksFromAPI); 
       } catch (error) {
-        console.error("Error fetching books:", error);
+        console.error("Error consulta de libros:", error);
       }
     };
     fetchBooks();
@@ -74,7 +74,7 @@ const BookList: React.FC = () => {
       ) : (
         <BookForm book={null} onSave={handleSave} />
       )}
-      <h2 className="text-2xl font-semibold mb-4">Book List</h2>
+      <h2 className="text-2xl font-semibold mb-4">Lista de libros creados</h2>
 
 
       <div className="mb-4">
@@ -83,7 +83,7 @@ const BookList: React.FC = () => {
           value={searchTerm}
           onChange={handleSearch}
           className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
-          placeholder="Search books by name"
+          placeholder="Consulta por nombre"
         />
       </div>
 
@@ -104,13 +104,13 @@ const BookList: React.FC = () => {
                 onClick={() => handleEdit(book)}
                 className="px-4 py-2 text-white bg-blue-500 rounded-md hover:bg-blue-600"
               >
-                Edit
+                Editar
               </button>
               <button
                 onClick={() => handleDelete(book._id)}
                 className="px-4 py-2 text-white bg-red-500 rounded-md hover:bg-red-600"
               >
-                Delete
+                Eliminar
               </button>
             </div>
           </li>

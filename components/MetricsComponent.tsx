@@ -1,19 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { PieChart, Pie, Cell, Tooltip, Legend, ResponsiveContainer } from "recharts";
-import { getAvailableBooks } from "@/services/loandClient"; // Servicio para obtener los libros
+import { getAvailableBooks } from "@/services/loandClient";
 
 const MetricsComponent: React.FC = () => {
-  const [books, setBooks] = useState<any[]>([]); // Para almacenar los libros
-  const [chartData, setChartData] = useState<any[]>([]); // Para almacenar los datos para el gráfico
+  const [books, setBooks] = useState<any[]>([]); 
+  const [chartData, setChartData] = useState<any[]>([]); 
 
   useEffect(() => {
     const fetchBooks = async () => {
       try {
-        const booksData = await getAvailableBooks(); // Llamada al servicio para obtener los libros
-        setBooks(booksData);
+        const booksData = await getAvailableBooks(); 
         const data = booksData.map((book) => ({
           name: book.name,
-          value: book.timesBorrowed || 0, // Usamos `timesBorrowed` como el valor para el gráfico
+          value: book.timesBorrowed || 0, 
         }));
         setChartData(data);
       } catch (error) {
@@ -22,13 +21,13 @@ const MetricsComponent: React.FC = () => {
     };
 
     fetchBooks();
-  }, []); // Ejecutar solo al montar el componente
+  }, []); 
 
   return (
     <div className="p-6">
       <h1 className="text-3xl font-bold text-center mb-6">Métricas de Libros</h1>
 
-      {/* Componente de gráfico */}
+
       <ResponsiveContainer width="100%" height={400}>
         <PieChart>
           <Pie
@@ -50,7 +49,7 @@ const MetricsComponent: React.FC = () => {
         </PieChart>
       </ResponsiveContainer>
 
-      {/* Mostrar listado de libros más prestados */}
+
       <div className="mt-6">
         <h2 className="text-2xl font-semibold mb-4">Libros más prestados</h2>
         <ul className="list-disc pl-6">

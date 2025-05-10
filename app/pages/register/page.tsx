@@ -1,5 +1,4 @@
-
-'use client'
+'use client';
 import React, { useState } from 'react';
 
 const RegisterForm: React.FC = () => {
@@ -7,6 +6,7 @@ const RegisterForm: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -23,10 +23,13 @@ const RegisterForm: React.FC = () => {
       const data = await response.json();
 
       if (response.ok) {
-        // Redirigir o mostrar mensaje de éxito
-        alert('Usuario registrado con éxito');
+        // Mostrar mensaje de éxito y limpiar los campos
+        setSuccessMessage('Usuario registrado con éxito');
+        setName('');
+        setEmail('');
+        setPassword('');
       } else {
-        setErrorMessage(data.message);
+        setErrorMessage(data.message || 'Error desconocido');
       }
     } catch (error) {
       setErrorMessage('Error al registrar el usuario');
@@ -36,6 +39,10 @@ const RegisterForm: React.FC = () => {
   return (
     <form onSubmit={handleSubmit} className="max-w-lg mx-auto p-6 rounded-md shadow-md">
       <h2 className="text-2xl font-semibold mb-4">Crear Cuenta</h2>
+
+      {successMessage && (
+        <div className="mb-4 text-green-500">{successMessage}</div>
+      )}
 
       {errorMessage && (
         <div className="mb-4 text-red-500">{errorMessage}</div>

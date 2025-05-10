@@ -51,7 +51,7 @@ const BookForm: React.FC<BookFormProps> = ({ book, onSave }) => {
       }
       onSave(); 
     } catch (error) {
-      console.error("Error saving book:", error); 
+      console.error("Error al guardar libro:", error); 
     }
   };
 
@@ -61,57 +61,57 @@ const BookForm: React.FC<BookFormProps> = ({ book, onSave }) => {
       className="max-w-lg mx-auto p-6 rounded-md shadow-md"
     >
       <h2 className="text-2xl font-semibold mb-4">
-        {book ? "Edit Book" : "Create Book"}
+        {book ? "Edit Libro" : "Crear Libro"}
       </h2>
 
       <div className="mb-4">
-        <label className="block text-gray-700">Book Title</label>
+        <label className="block text-gray-700">Titulo</label>
         <input
           type="text"
           name="name"
           value={formData.name}
           onChange={handleChange}
           className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
-          placeholder="Enter book title"
+          placeholder="Ingrese el titulo"
           required
         />
       </div>
 
       <div className="mb-4">
-        <label className="block text-gray-700">Authors</label>
+        <label className="block text-gray-700">Autores</label>
         <input
           type="text"
           name="authors"
           value={formData.authors.join(", ")}
           onChange={(e) => handleArrayChange(e, 'authors')}
           className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
-          placeholder="Enter authors (comma separated)"
+          placeholder="Ingrese autores separados por comas"
           required
         />
       </div>
 
       <div className="mb-4">
-        <label className="block text-gray-700">Genres</label>
+        <label className="block text-gray-700">Genero</label>
         <input
           type="text"
           name="genres"
           value={formData.genres.join(", ")}
           onChange={(e) => handleArrayChange(e, 'genres')}
           className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
-          placeholder="Enter genres (comma separated)"
+          placeholder="Ingrese generos separados por comas"
           required
         />
       </div>
 
       <div className="mb-4">
-        <label className="block text-gray-700">Loan Duration (days)</label>
+        <label className="block text-gray-700">Dias de prestamo</label>
         <input
           type="number"
           name="loanDuration"
           value={formData.loanDuration}
           onChange={handleChange}
           className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
-          placeholder="Enter loan duration"
+          placeholder="Ingrese los dias"
           required
         />
       </div>
@@ -120,7 +120,7 @@ const BookForm: React.FC<BookFormProps> = ({ book, onSave }) => {
         type="submit"
         className="w-full bg-blue-400 text-black py-2 px-4 rounded-md hover:bg-blue-500"
       >
-        {book ? "Update Book" : "Create Book"}
+        {book ? "Actualizar" : "Crear Libro"}
       </button>
     </form>
   );
