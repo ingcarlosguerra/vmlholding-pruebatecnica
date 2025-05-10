@@ -1,12 +1,12 @@
 'use client'
 
 import React, { useState, useEffect } from "react";
-import { Book } from "@/types/book"; // Tipo de libro que importas desde tu archivo de tipos
-import { createBook, updateBook } from "@/services/bookService"; // Servicios para crear y actualizar el libro
+import { Book } from "@/types/book"; 
+import { createBook, updateBook } from "@/services/bookService"; 
 
 interface BookFormProps {
-  book?: Book | null; // Si existe, es para editar un libro
-  onSave: () => void; // Función que se llama cuando se guarda el libro (para refrescar la lista)
+  book?: Book | null; 
+  onSave: () => void; 
 }
 
 const BookForm: React.FC<BookFormProps> = ({ book, onSave }) => {
@@ -30,7 +30,7 @@ const BookForm: React.FC<BookFormProps> = ({ book, onSave }) => {
     });
   };
 
-  // Manejar cambios específicos para autores y géneros para convertirlos en arrays
+
   const handleArrayChange = (e: React.ChangeEvent<HTMLInputElement>, field: string) => {
     setFormData({
       ...formData,
@@ -43,15 +43,15 @@ const BookForm: React.FC<BookFormProps> = ({ book, onSave }) => {
 
     try {
       if (book) {
-        // Si el libro ya existe, actualízalo
+
         await updateBook(book._id, formData); 
       } else {
-        // Si no existe, crea un nuevo libro
+  
         await createBook(formData);
       }
-      onSave(); // Llamar a la función para refrescar la lista de libros
+      onSave(); 
     } catch (error) {
-      console.error("Error saving book:", error); // Capturar posibles errores
+      console.error("Error saving book:", error); 
     }
   };
 

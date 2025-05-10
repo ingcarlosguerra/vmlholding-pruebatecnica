@@ -4,8 +4,8 @@ import Loan from '@/models/Loan';
 import Book from '@/models/Book';
 import User from '@/models/User';
 
-const MAX_ACTIVE_LOANS = 3;          // límite de préstamos simultáneos
-const DAILY_FINE = 5;                // multa diaria por retraso
+const MAX_ACTIVE_LOANS = 3;          
+const DAILY_FINE = 5;               
 
 const checkUserLimit = async (userId: string) => {
   const activeLoans = await Loan.countDocuments({ userId, status: 'active' });

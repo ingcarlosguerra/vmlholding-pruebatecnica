@@ -35,13 +35,45 @@ export async function GET(req: Request, { params }: { params: Params }) {
 
 
 
+// export async function PUT(req: Request, { params }: { params: Params }) {
+//   try {
+//     await connectDB();
+//     const { id} = await params;
+//     const updatedData = await req.json();
+
+//     const book = await Books.findByIdAndUpdate(id, updatedData ,{ new:true } );
+
+//     if (!book) {
+//       return NextResponse.json(
+//         { message: "El libro solicitado no se encuentra" }, {
+//           status: 404
+//         }
+//       );
+//     }
+
+//     return NextResponse.json(book);
+//   } catch (error: any) {
+//     return NextResponse.json(
+//       { message: error.message }, {
+//         status: 500
+//       }
+//     );
+//   }
+// }
+
 export async function PUT(req: Request, { params }: { params: Params }) {
   try {
+
     await connectDB();
-    const { id} = await params;
+    const { id } = await params;
     const updatedData = await req.json();
 
-    const book = await Books.findByIdAndUpdate(id, updatedData ,{ new:true } );
+    if (updatedData.availability === false) {
+      updatedData.timesBorrowed = 1;  
+    }
+
+
+    const book = await Books.findByIdAndUpdate(id, updatedData, { new: true });
 
     if (!book) {
       return NextResponse.json(
