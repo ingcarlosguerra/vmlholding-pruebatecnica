@@ -30,8 +30,8 @@ const BookList: React.FC = () => {
   const handleDelete = async (id: string) => {
     try {
       await deleteBook(id);
-      setBooks(books.filter((book) => book._id !== id)); // Eliminar libro de la lista
-      setFilteredBooks(filteredBooks.filter((book) => book._id !== id)); // Eliminar libro de los libros filtrados
+      setBooks(books.filter((book) => book._id !== id)); 
+      setFilteredBooks(filteredBooks.filter((book) => book._id !== id)); 
     } catch (error) {
       console.error("Error deleting book:", error);
     }
@@ -39,18 +39,18 @@ const BookList: React.FC = () => {
 
 
   const handleEdit = (book: Book) => {
-    setSelectedBook(book); // Cargar el libro para editar
+    setSelectedBook(book); 
   };
 
-  // Guardar cambios en un libro (después de crear o editar)
+
   const handleSave = () => {
-    setSelectedBook(null); // Cerrar el formulario de edición
-    // Volver a cargar los libros
+    setSelectedBook(null); 
+
     const fetchBooks = async () => {
       try {
         const booksFromAPI = await getBooks();
         setBooks(booksFromAPI);
-        setFilteredBooks(booksFromAPI); // Actualizar los libros filtrados
+        setFilteredBooks(booksFromAPI); 
       } catch (error) {
         console.error("Error fetching books:", error);
       }
@@ -58,20 +58,25 @@ const BookList: React.FC = () => {
     fetchBooks();
   };
 
-  // Buscar libros por nombre
+ 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(e.target.value);
     const filtered = books.filter((book) =>
       book.name.toLowerCase().includes(e.target.value.toLowerCase())
     );
-    setFilteredBooks(filtered); // Filtrar libros según el nombre
+    setFilteredBooks(filtered); 
   };
 
   return (
     <div className="max-w-4xl mx-auto">
+        {selectedBook ? (
+        <BookForm book={selectedBook} onSave={handleSave} />
+      ) : (
+        <BookForm book={null} onSave={handleSave} />
+      )}
       <h2 className="text-2xl font-semibold mb-4">Book List</h2>
 
-      {/* Buscador */}
+
       <div className="mb-4">
         <input
           type="text"
@@ -82,7 +87,7 @@ const BookList: React.FC = () => {
         />
       </div>
 
-      {/* Lista de libros */}
+   
       <ul className="space-y-4">
         {filteredBooks.map((book) => (
           <li
@@ -112,12 +117,7 @@ const BookList: React.FC = () => {
         ))}
       </ul>
 
-      {/* Formulario de creación o edición de libros */}
-      {selectedBook ? (
-        <BookForm book={selectedBook} onSave={handleSave} />
-      ) : (
-        <BookForm book={null} onSave={handleSave} />
-      )}
+
     </div>
   );
 };
