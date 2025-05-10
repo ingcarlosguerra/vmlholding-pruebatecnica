@@ -3,13 +3,7 @@ import { NextResponse } from 'next/server';
 import { connectDB } from '@/utils/mongoose';
 import Book from '@/models/Book';
 
-interface Book {
-  id: number;
-  title: string;
-  author: string;
-  genre: string;
-  available: boolean;
-}
+
 
 export async function GET(){
   connectDB()
