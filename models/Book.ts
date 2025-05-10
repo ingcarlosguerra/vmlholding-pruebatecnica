@@ -4,7 +4,6 @@ const BookSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true, 
-    unique: [true , "El nombre de cada libro deber se unico"] ,   
     trim: true,
 
   },
