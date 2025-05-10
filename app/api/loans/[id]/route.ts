@@ -1,7 +1,7 @@
 import { connectDB } from "@/utils/mongoose";
-import Books from '@/models/Book';
+import Loans from '@/models/Loan';
 import { NextResponse } from "next/server";
-import mongoose from "mongoose";
+
 
 interface Params {
   id: string;
@@ -13,17 +13,17 @@ export async function GET(req: Request, { params }: { params: Params }) {
     await connectDB();
 
     const { id} = await params;
-    const book = await Books.findById(id);
+    const loans = await Loans.findById(id);
 
-    if (!book) {
+    if (!loans) {
       return NextResponse.json(
-        { message: "El libro solicitado no se encuentra" }, {
+        { message: "El prestamo solicitado no se encuentra" }, {
           status: 404
         }
       );
     }
 
-    return NextResponse.json(book);
+    return NextResponse.json(loans);
   } catch (error: any) {
     return NextResponse.json(
       { message: error.message }, {
@@ -41,17 +41,17 @@ export async function PUT(req: Request, { params }: { params: Params }) {
     const { id} = await params;
     const updatedData = await req.json();
 
-    const book = await Books.findByIdAndUpdate(id, updatedData ,{ new:true } );
+    const loan = await Loans.findByIdAndUpdate(id, updatedData ,{ new:true } );
 
-    if (!book) {
+    if (!loan) {
       return NextResponse.json(
-        { message: "El libro solicitado no se encuentra" }, {
+        { message: "El loan solicitado no se encuentra" }, {
           status: 404
         }
       );
     }
 
-    return NextResponse.json(book);
+    return NextResponse.json(loan);
   } catch (error: any) {
     return NextResponse.json(
       { message: error.message }, {
@@ -66,17 +66,17 @@ export async function DELETE(req: Request, { params }: { params: Params }) {
     await connectDB();
     
 
-    const deletedBook = await Books.findByIdAndDelete(params.id);
+    const deletedLoans = await Loans.findByIdAndDelete(params.id);
 
-    if (!deletedBook) {
+    if (!deletedLoans) {
       return NextResponse.json(
-        { message: "El libro solicitado no se encuentra" }, {
+        { message: "El registro solicitado no se encuentra" }, {
           status: 404
         }
       );
     }
 
-    return NextResponse.json({ message: "Libro eliminado con éxito" });
+    return NextResponse.json({ message: "registro eliminado con éxito" });
   } catch (error: any) {
     return NextResponse.json(
       { message: error.message }, {
